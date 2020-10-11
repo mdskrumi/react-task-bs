@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   BrowserRouter as Router,
@@ -12,13 +12,12 @@ import App from './App';
 import About from './About';
 import PrivacyAndTerm from './PrivacyAndTerm';
 import Detail from './Detail';
-import Intro from './Intro';
+// import Intro from './Intro';
 
 
 
 const MainPage = () => {
 
-  const [image, setImage] = useState({});
 
   return (
     <Router>
@@ -43,8 +42,8 @@ const MainPage = () => {
 
         <Switch>
           {/* <Route path="/">
-                <Intro />
-              </Route> */}
+            <Intro />
+          </Route> */}
           <Route path="/about">
             <About />
           </Route>
@@ -52,10 +51,10 @@ const MainPage = () => {
             <PrivacyAndTerm />
           </Route>
           <Route path="/home">
-            <App setImage={setImage} />
+            <App />
           </Route>
           <Route path={`/detail/:id`}>
-            <Detail image={image} />
+            <Detail />
           </Route>
         </Switch>
       </div>

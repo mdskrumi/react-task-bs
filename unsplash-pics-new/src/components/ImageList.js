@@ -7,17 +7,16 @@ import {
 
 
 
-const ImageList = (props) => {
+const ImageList = ({ images }) => {
 
-  const images = props.images.map((image) => {
+  return images.map((image) => {
     return (
-      <div style={{ height: "500px", padding: "10px" }} >
-        <Link onClick={() => { props.setImage(image) }} to={`/detail/${image.id}`}>  <img src={image.urls.regular} key={image.id} alt={image.description} /> </Link>
+      <div key={image.id} style={{ height: "500px", padding: "10px" }} >
+        <Link to={`/detail/${image.id}`}>  <img src={image.urls.regular} key={image.id} alt={image.description} /> </Link>
       </div>
     );
   });
 
-  return <div> {images} </div>;
 };
 
 export default ImageList;
