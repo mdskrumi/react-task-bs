@@ -11,7 +11,7 @@ const ImageList = ({ images }) => {
 
   return images.map((image) => {
     return (
-      <div key={image.id} style={{ height: "500px", padding: "10px" }} >
+      <div key={image.id} style={{ objectFit: "contain" }} >
         <Link to={`/detail/${image.id}`}>  <img src={image.urls.regular} key={image.id} alt={image.description} /> </Link>
       </div>
     );

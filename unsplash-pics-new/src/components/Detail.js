@@ -45,9 +45,9 @@ const Detail = () => {
     return (
         // null
         <div className="ui container" >
-            <div>
-                <img width="502px" src={data.urls.regular} alt="img"></img>
-                <p style={{ border: "2px solid black", padding: '10px' }}> {data.description || "Here is the description of the image"} </p>
+            <div >
+                <img width="700px" src={data.urls.regular} alt="img"></img>
+                <p style={{ border: "2px solid black", padding: '20px', }}> {data.description || "The description of the image was not found. :) "} </p>
             </div>
         </div>
     )
