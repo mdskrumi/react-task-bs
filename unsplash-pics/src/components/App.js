@@ -3,19 +3,12 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import ImageList from "./ImageList";
 
-// Convert this class to functional component.
-// Use hooks to manage it's local state.
-const App = () => {
+const App = ({setImage}) => {
   const [images, setImages] = useState([]);
   const [error_msg, setErrorMsg] = useState("");
 
-  // Handle Error - DONE
   const onSearchSubmit = (term) => {
-    // const response = await unsplash.get("/search/photos", {
-    //   params: {
-    //     query: term,
-    //   },
-    // });
+
 
     fetch("https://api.unsplash.com/search/photos/?query=" + term, {
       method: "GET",
@@ -25,7 +18,7 @@ const App = () => {
     })
       .then((response) => {
         console.log(response);
-        if (response.status == 200) {
+        if (response.status === 200) {
           // console.log("here");
           return response.json();
         } else throw "Something went wrong";
@@ -40,7 +33,7 @@ const App = () => {
 
   const renderContent = () => {
     if (!error_msg) {
-      return <ImageList images={images} />;
+      return <ImageList images={images} setImage={setImage} />;
     } else {
       return (
         <h2
