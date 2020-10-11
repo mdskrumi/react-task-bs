@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SearchBar from "./SearchBar";
 import ImageList from "./ImageList";
 
-const App = ({setImage}) => {
+const App = ({ setImage }) => {
   const [images, setImages] = useState([]);
+  const [term, setTerm] = useState("bangladesh");
   const [error_msg, setErrorMsg] = useState("");
 
-  const onSearchSubmit = (term) => {
 
+  useEffect(() => {
+    onSearchSubmit(term);
+  }, []);
+
+
+  const onSearchSubmit = (term) => {
+    setTerm(term);
 
     fetch("https://api.unsplash.com/search/photos/?query=" + term, {
       method: "GET",
