@@ -54,7 +54,7 @@ const MainPage = () => {
           <Route path="/home">
             <App setImage={setImage} />
           </Route>
-          <Route path={`/detail`}>
+          <Route path={`/detail/:id`}>
             <Detail image={image} />
           </Route>
         </Switch>

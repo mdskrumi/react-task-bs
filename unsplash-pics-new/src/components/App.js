@@ -22,23 +22,37 @@ const App = ({ setImage }) => {
   };
 
 
-  const { isLoading, error, response } = useQuery('Images', () =>
-    fetch("https://api.unsplash.com/search/photos/?query=" + term, {
+
+
+  const { isLoading, error, data } = useQuery('Images', async () => {
+    const response = await fetch("https://api.unsplash.com/search/photos/?query=" + term, {
       method: "GET",
       headers: {
         Authorization: "Client-ID R4Q_V32stbrWOzb3DpOntSfstan64mljhm-QftIjSCY",
       },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-      }).then((response) => {
-        setImages(response.results);
-        console.log(response)
-      })
-
+    });
+    return response.json();
+  },
+    {
+      cacheTime: 0,
+    }
   );
+
+
+  useEffect(() => {
+    if (data && data.results) {
+      setImages(data.results);
+      console.log(images);
+
+    }
+    return () => {
+      queryCache.clear();
+    }
+  }, [isLoading, data])
+
+
+  console.log(data);
+
 
   if (error) {
     return <div>{'An error has occurred: ' + error.message}</div>
@@ -48,7 +62,6 @@ const App = ({ setImage }) => {
     <ReactQueryCacheProvider queryCache={queryCache}>
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSearchSubmit={onSearchSubmit} />
-        <h4>Found: {images.length} Images</h4>
         <ImageList images={images} setImage={setImage} />
       </div>
     </ReactQueryCacheProvider>
