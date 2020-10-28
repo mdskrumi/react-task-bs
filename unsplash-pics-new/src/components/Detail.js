@@ -20,35 +20,28 @@ const Detail = () => {
         return response.json();
     }
     );
-
-
     useEffect(() => {
         if (!isLoading) {
             setImage(data);
         }
 
-    }, [isLoading, data, image])
+    }, [isLoading, data, image]);
 
-    if (error) {
-        return <div>Some Error</div>
-    }
-    else if (isLoading) {
-        return (
-            <div className="ui container">
-                <div className="ui active dimmer">
-                    <div className="ui indeterminate text loader">Preparing Image</div>
-                </div>
-                <p></p>
-            </div>
-        )
-    }
+
+    const body = (isLoading) ?
+        (<div className="ui active dimmer">
+            <div className="ui indeterminate text loader">Preparing Image</div>
+        </div>)
+        :
+        (<div >
+            <img width="700px" src={data.urls.regular} alt="img"></img>
+            <p style={{ border: "2px solid black", padding: '20px', }}> {data.description || "The description of the image was not found. :) "} </p>
+        </div>)
+
+
     return (
-        // null
         <div className="ui container" >
-            <div >
-                <img width="700px" src={data.urls.regular} alt="img"></img>
-                <p style={{ border: "2px solid black", padding: '20px', }}> {data.description || "The description of the image was not found. :) "} </p>
-            </div>
+            {body}
         </div>
     )
 

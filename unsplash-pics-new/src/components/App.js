@@ -45,30 +45,30 @@ const App = () => {
       setImages(data.results);
     }
     return () => {
-      queryCache.clear();
+      // queryCache.clear();
     }
   }, [isLoading, data, term])
 
 
-  if (error) {
-    return <div>{'An error has occurred: ' + error.message}</div>
-  }
-  else if (isLoading) {
-    return (
-      <div className="ui container">
-        <div className="ui active dimmer">
-          <div className="ui indeterminate text loader">Preparing Images</div>
-        </div>
-        <p></p>
+  const body = (isLoading) ?
+    (
+      <div className="ui active dimmer">
+        <div className="ui indeterminate text loader">Preparing Images</div>
       </div>
     )
+    :
+    <ImageList images={images} />;
+
+
+  if (error) {
+    return <div>{'An error has occurred: ' + error.message}</div>
   }
 
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSearchSubmit={onSearchSubmit} />
-        <ImageList images={images} />
+        {body}
       </div>
     </ReactQueryCacheProvider>
   )
